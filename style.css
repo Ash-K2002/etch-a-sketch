@@ -1,0 +1,18 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    height: 600px;
+    justify-content: stretch;
+}
+
+.row{
+    display: flex;
+    flex-grow: 1;
+}
+
+.element{
+    aspect-ratio: 1/1;
+    border:1px solid black;
+    flex-grow: 1;
+}
