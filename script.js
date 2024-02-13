@@ -1,44 +1,45 @@
 const slider = document.getElementById("myRange");
 const output = document.getElementById("demo");
 const picker= document.getElementById("clrpkr");
-const switch1= document.getElementById("chkbx");
-output.textContent = slider.value;
-let pencolor="white";
-slider.oninput = function() {
-  output.textContent = this.value;
-}
 
+
+
+// creates a grid with a given dimension
 function createGrid(dimension=16)
 { const container=document.querySelector(".container");
 
   for(let i=0;i<dimension;i++)
-  { let row= document.createElement('div');
+  { //creates a row and appends it to container
+    let row= document.createElement('div');
     row.classList.add("row");
     container.appendChild(row);
     for(let j=0;j<dimension;j++)
     {
+      //creates an element and appends it to row
       let element= document.createElement('div');
       element.classList.add("element");
       element.style.cssText="background-color:black";
       row.appendChild(element);
-      
-     
+
+      //lets you draw only if you press control while hovering
       element.onmouseenter=()=>{
-        element.style.cssText="background-color:"+picker.value;
+        document.onkeydown=(e)=>{
+          if(e.key=='Control')
+        { 
+          element.style.cssText="background-color:"+picker.value;
+        }
+        }
+        
       }
-      
+
     }
   }
 }
 
-document.querySelector('#eraser').addEventListener('click',()=>{
-picker.value="black";
-});
+//creates a default grid at the beginning
+createGrid();
 
-document.querySelector("#new-grd").addEventListener('click',()=>{
-  newGrid();
-})
-
+// wipes out the container and generates new grid
 function newGrid()
 { let dimension= Number(output.textContent);
   console.log(dimension);
@@ -46,4 +47,23 @@ function newGrid()
   createGrid(dimension);
 }
 
-createGrid();
+
+//code for eraser button
+document.querySelector('#eraser').addEventListener('click',()=>{
+picker.value="#000000";
+});
+
+// code for new grid button
+document.querySelector("#new-grd").addEventListener('click',()=>{
+  newGrid();
+})
+
+
+//code for the slider
+output.textContent = slider.value;
+let pencolor="white";
+slider.oninput = function() {
+  output.textContent = this.value;
+}
+
+
